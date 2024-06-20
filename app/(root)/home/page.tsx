@@ -7,7 +7,7 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-async function Home({
+async function Page({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
@@ -50,7 +50,7 @@ async function Home({
       </section>
 
       <Pagination
-        path='/'
+        path='/home'
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={result.isNext}
       />
@@ -58,4 +58,4 @@ async function Home({
   );
 }
 
-export default Home;
+export default Page;

@@ -5,5 +5,5 @@ export default function Page() {
     <div className="md:mt-[10%] mt-[42%]">
       <SignIn />
     </div>
-  )
+  );
 }
