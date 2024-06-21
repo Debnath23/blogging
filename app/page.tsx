@@ -57,18 +57,18 @@ export default function Home() {
           }}
           className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
         >
-          {/* <p className="text-neutral-100 dark:text-neutral-200 text-xs sm:text-base  ">
-            The road to freedom starts from here
-          </p> */}
+          <p className="text-neutral-200 dark:text-neutral-200 sm:text-base md:hidden xl:hidden 2xl:hidden lg:hidden">
+          Spread your knowledge <br /> and be a part of a innovative Community! 
+          </p>
           <TypewriterEffectSmooth words={words} className="md:ml-2" />
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 md:ml-[84px]">
             <Link href="/sign-in">
-              <button className="w-40 h-10 rounded-xl bg-black border border-white dark:border-white border-transparent text-white text-sm">
+              <button className="w-40 h-10 rounded-xl bg-black border border-white dark:border-white border-transparent text-white text-sm hover:bg-white hover:text-black">
                 Join now
               </button>
             </Link>
             <Link href="/sign-up">
-              <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
+              <button className="w-40 h-10 rounded-xl bg-white text-black border border-black text-sm hover:bg-black hover:text-white">
                 Signup
               </button>
             </Link>
