@@ -16,6 +16,20 @@ const userSchema = new mongoose.Schema({
   },
   image: String,
   bio: String,
+  dob: Number,
+  sex: String,
+  bloodGroup: String,
+  lastPassIns: String,
+  currentStatus: String,
+  experties: String,
+  memories: [
+    {
+      type: String
+    }
+  ],
+  userMail: String,
+  phoneNo: Number,
+  futureScope: String,
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,
