@@ -29,6 +29,16 @@ interface Params {
   bio: string;
   image: string;
   path: string;
+  dob: number,
+  sex: string,
+  bloodGroup: string,
+  lastPassIns: string,
+  currentStatus: string,
+  experties: string,
+  memories: string,
+  userMail: string,
+  phoneNo: number,
+  futureScope: string
 }
 
 export async function updateUser({
@@ -38,6 +48,16 @@ export async function updateUser({
   path,
   username,
   image,
+  dob,
+  sex,
+  bloodGroup,
+  lastPassIns,
+  currentStatus,
+  experties,
+  memories,
+  userMail,
+  phoneNo,
+  futureScope
 }: Params): Promise<void> {
   try {
     connectToDB();
@@ -49,6 +69,16 @@ export async function updateUser({
         name,
         bio,
         image,
+        dob,
+        sex,
+        bloodGroup: bloodGroup.toUpperCase(),
+        lastPassIns,
+        currentStatus,
+        experties,
+        memories,
+        userMail,
+        phoneNo,
+        futureScope,
         onboarded: true,
       },
       { upsert: true }

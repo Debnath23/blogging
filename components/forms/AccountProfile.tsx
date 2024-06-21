@@ -56,13 +56,24 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
     const blob = values.profile_photo;
+    const memoriesImg = values.memories;
 
     const hasImageChanged = isBase64Image(blob);
+    const hasMemoriesImgChanged = isBase64Image(memoriesImg);
+
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
 
       if (imgRes && imgRes[0].url) {
         values.profile_photo = imgRes[0].url;
+      }
+    }
+
+    if (hasMemoriesImgChanged) {
+      const MemoriesImgRes = await startUpload(files);
+
+      if (MemoriesImgRes && MemoriesImgRes[0].url) {
+        values.memories = MemoriesImgRes[0].url;
       }
     }
 
@@ -73,6 +84,16 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       userId: user.id,
       bio: values.bio,
       image: values.profile_photo,
+      dob: values.dob,
+      sex: values.sex,
+      bloodGroup: values.bloodGroup,
+      lastPassIns: values.lastPassIns,
+      currentStatus: values.currentStatus,
+      experties: values.experties,
+      memories: values.memories,
+      userMail: values.userMail,
+      phoneNo: values.phoneNo,
+      futureScope: values.futureScope,
     });
 
     if (pathname === "/profile/edit") {
@@ -205,6 +226,224 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                 />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="dob"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                DOB
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="sex"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Gender
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="bloodGroup"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Blood Group
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="lastPassIns"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Last Passing Institution
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="currentStatus"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Current Status
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="experties"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Experties
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="userMail"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                User Mail Id
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="phoneNo"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Phone No
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="futureScope"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col gap-3">
+              <FormLabel className="text-base-semibold text-light-2">
+                Future Scope
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="profile_photo"
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-4">
+              <FormLabel className="account-form_image-label">
+                {field.value ? (
+                  <Image
+                    src={field.value}
+                    alt="profile_icon"
+                    width={96}
+                    height={96}
+                    priority
+                    className="object-contain"
+                  />
+                ) : (
+                  <Image
+                    src="/assets/profile.svg"
+                    alt="profile_icon"
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                  />
+                )}
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  placeholder="Add profile photo"
+                  className="account-form_image-input"
+                  onChange={(e) => handleImage(e, field.onChange)}
+                />
+              </FormControl>
             </FormItem>
           )}
         />
