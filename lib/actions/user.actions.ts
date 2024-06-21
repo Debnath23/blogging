@@ -24,7 +24,6 @@ export async function fetchUser(userId: string) {
 
 interface Params {
   userId: string;
-  email: string;
   username: string;
   name: string;
   bio: string;
@@ -34,7 +33,6 @@ interface Params {
 
 export async function updateUser({
   userId,
-  email,
   bio,
   name,
   path,
@@ -44,14 +42,9 @@ export async function updateUser({
   try {
     connectToDB();
 
-    if (!email) {
-      throw new Error("Email cannot be null");
-    }
-
     await User.findOneAndUpdate(
       { id: userId },
       {
-        email,
         username: username.toLowerCase(),
         name,
         bio,

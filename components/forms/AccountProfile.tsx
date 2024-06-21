@@ -1,5 +1,6 @@
 "use client";
 
+import * as z from "zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,14 +22,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useUploadThing } from "@/lib/uploadthing";
 import { isBase64Image } from "@/lib/utils";
 
-import { UserValidation, UserValidationType } from "@/lib/validations/user";
+import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
 
 interface Props {
   user: {
     id: string;
     objectId: string;
-    email: string;
     username: string;
     name: string;
     bio: string;
@@ -44,24 +44,23 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const form = useForm<UserValidationType>({
+  const form = useForm<z.infer<typeof UserValidation>>({
     resolver: zodResolver(UserValidation),
     defaultValues: {
       profile_photo: user?.image ? user.image : "",
       name: user?.name ? user.name : "",
-      email: user?.email ? user.email : "",
       username: user?.username ? user.username : "",
       bio: user?.bio ? user.bio : "",
     },
   });
 
-  const onSubmit = async (values: UserValidationType) => {
+  const onSubmit = async (values: z.infer<typeof UserValidation>) => {
     const blob = values.profile_photo;
 
     const hasImageChanged = isBase64Image(blob);
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
-      console.log(imgRes);
+
       if (imgRes && imgRes[0].url) {
         values.profile_photo = imgRes[0].url;
       }
@@ -69,7 +68,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
     await updateUser({
       name: values.name,
-      email: values.email,
       path: pathname,
       username: values.username,
       userId: user.id,
@@ -162,26 +160,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
               <FormControl>
                 <Input
                   type="text"
-                  className="account-form_input no-focus"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
-                Email
-              </FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
                   className="account-form_input no-focus"
                   {...field}
                 />
