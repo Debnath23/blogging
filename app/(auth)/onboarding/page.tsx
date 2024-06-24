@@ -15,19 +15,10 @@ async function Page() {
     id: user.id,
     objectId: userInfo?._id,
     username: userInfo ? userInfo?.username : user.username,
+    email: userInfo ? userInfo?.email : user.email,
     name: userInfo ? userInfo?.name : user.firstName ?? "",
     bio: userInfo ? userInfo?.bio : "",
     image: userInfo ? userInfo?.image : user.imageUrl,
-    dob: userInfo ? userInfo?.dob : "",
-    sex: userInfo ? userInfo?.sex : "",
-    bloodGroup: userInfo ? userInfo?.bloodGroup : "",
-    lastPassIns: userInfo ? userInfo?.lastPassIns : "",
-    currentStatus: userInfo ? userInfo?.currentStatus : "",
-    experties: userInfo ? userInfo?.experties : "",
-    memories: userInfo ? userInfo?.memories : "",
-    userMail: userInfo ? userInfo?.userMail : "",
-    phoneNo: userInfo ? userInfo?.phoneNo : "",
-    futureScope: userInfo ? userInfo?.futureScope : "",
   };
 
   return (

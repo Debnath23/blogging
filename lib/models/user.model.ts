@@ -14,22 +14,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   image: String,
   bio: String,
-  dob: Number,
-  sex: String,
-  bloodGroup: String,
-  lastPassIns: String,
-  currentStatus: String,
-  experties: String,
-  memories: [
-    {
-      type: String
-    }
-  ],
-  userMail: String,
-  phoneNo: Number,
-  futureScope: String,
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -26,38 +26,20 @@ interface Params {
   userId: string;
   username: string;
   name: string;
+  email: string;
   bio: string;
   image: string;
   path: string;
-  dob: number,
-  sex: string,
-  bloodGroup: string,
-  lastPassIns: string,
-  currentStatus: string,
-  experties: string,
-  memories: string,
-  userMail: string,
-  phoneNo: number,
-  futureScope: string
 }
 
 export async function updateUser({
   userId,
   bio,
   name,
+  email,
   path,
   username,
   image,
-  dob,
-  sex,
-  bloodGroup,
-  lastPassIns,
-  currentStatus,
-  experties,
-  memories,
-  userMail,
-  phoneNo,
-  futureScope
 }: Params): Promise<void> {
   try {
     connectToDB();
@@ -67,18 +49,9 @@ export async function updateUser({
       {
         username: username.toLowerCase(),
         name,
+        email,
         bio,
         image,
-        dob,
-        sex,
-        bloodGroup: bloodGroup.toUpperCase(),
-        lastPassIns,
-        currentStatus,
-        experties,
-        memories,
-        userMail,
-        phoneNo,
-        futureScope,
         onboarded: true,
       },
       { upsert: true }
