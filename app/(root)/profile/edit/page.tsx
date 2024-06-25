@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import { fetchUser } from "@/lib/actions/user.actions";
 import AccountProfile from "@/components/forms/AccountProfile";
 
-// Copy paste most of the code as it is from the /onboarding
-
 async function Page() {
   const user = await currentUser();
   if (!user) return null;
@@ -13,14 +11,17 @@ async function Page() {
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  // Extract the first email address from the emailAddresses array
+  const primaryEmail = user.emailAddresses[0]?.emailAddress || '';
+
   const userData = {
     id: user.id,
     objectId: userInfo?._id,
-    username: userInfo ? userInfo?.username : user.username,
-    email: userInfo ? userInfo?.email : user.email,
-    name: userInfo ? userInfo?.name : user.firstName ?? "",
-    bio: userInfo ? userInfo?.bio : "",
-    image: userInfo ? userInfo?.image : user.imageUrl,
+    username: userInfo ? userInfo.username : user.username,
+    email: userInfo ? userInfo.email : primaryEmail,
+    name: userInfo ? userInfo.name : user.firstName ?? "",
+    bio: userInfo ? userInfo.bio : "",
+    image: userInfo ? userInfo.image : user.imageUrl,
   };
 
   return (
@@ -36,3 +37,4 @@ async function Page() {
 }
 
 export default Page;
+

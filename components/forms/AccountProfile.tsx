@@ -30,14 +30,13 @@ interface Props {
     id: string;
     objectId: string;
     username: string;
-    email: string;
     name: string;
+    email: string;
     bio: string;
     image: string;
   };
   btnTitle: string;
 }
-
 const AccountProfile = ({ user, btnTitle }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -50,8 +49,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     defaultValues: {
       profile_photo: user?.image ? user.image : "",
       name: user?.name ? user.name : "",
+      email: user?.email ? user.email : "", // Ensure email is included here
       username: user?.username ? user.username : "",
-      email: user?.email ? user.email : "",
       bio: user?.bio ? user.bio : "",
     },
   });
@@ -62,7 +61,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     const hasImageChanged = isBase64Image(blob);
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
-
       if (imgRes && imgRes[0].url) {
         values.profile_photo = imgRes[0].url;
       }
@@ -70,9 +68,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
     await updateUser({
       name: values.name,
+      email: values.email, // Ensure email is passed here
       path: pathname,
       username: values.username,
-      email: values.email,
       userId: user.id,
       bio: values.bio,
       image: values.profile_photo,
@@ -174,15 +172,15 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
         <FormField
           control={form.control}
-          name='username'
+          name='email' // Add email field
           render={({ field }) => (
             <FormItem className='flex w-full flex-col gap-3'>
               <FormLabel className='text-base-semibold text-light-2'>
-                Username
+                Email
               </FormLabel>
               <FormControl>
                 <Input
-                  type='text'
+                  type='email'
                   className='account-form_input no-focus'
                   {...field}
                 />
@@ -194,11 +192,11 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
         <FormField
           control={form.control}
-          name='email'
+          name='username'
           render={({ field }) => (
             <FormItem className='flex w-full flex-col gap-3'>
               <FormLabel className='text-base-semibold text-light-2'>
-                User Email
+                Username
               </FormLabel>
               <FormControl>
                 <Input

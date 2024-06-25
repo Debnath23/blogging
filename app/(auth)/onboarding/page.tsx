@@ -35,4 +35,4 @@ async function Page() {
   );
 }
 
-export default Page;
+export default Page

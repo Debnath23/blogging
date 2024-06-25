@@ -43,13 +43,17 @@ export async function updateUser({
 }: Params): Promise<void> {
   try {
     connectToDB();
+    
+    if (!email) {
+      throw new Error("Email cannot be null");
+    }
 
     await User.findOneAndUpdate(
       { id: userId },
       {
+        email,
         username: username.toLowerCase(),
         name,
-        email,
         bio,
         image,
         onboarded: true,
